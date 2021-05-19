@@ -14,5 +14,4 @@
         <module>user.cmd.api</module>
         <module>user.query.api</module>
     </modules>
-
 </project>
