@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.*;
 
 import javax.validation.constraints.*;
+import javax.validation.*;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +24,6 @@ public class User {
 	@Email(message="Provide a valid email address")
 	private String emailAddress;
 	@NotNull(message="Provide account credentials")
+	@Valid
 	private Account account;
 }

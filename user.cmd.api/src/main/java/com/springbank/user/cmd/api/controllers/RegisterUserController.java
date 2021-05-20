@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import com.springbank.user.cmd.api.commands.RegisterUserCommand;
 import com.springbank.user.cmd.api.dto.*;
 
+import javax.validation.*;
+
 @RestController
 @RequestMapping(path="/api/v1/registerUser")
 public class RegisterUserController {
@@ -22,17 +24,18 @@ public class RegisterUserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<RegisterUserResponse> registerUser(@RequestBody RegisterUserCommand command) {
-		command.setId(UUID.randomUUID().toString());
+	public ResponseEntity<RegisterUserResponse> registerUser(@Valid @RequestBody RegisterUserCommand command) {
+		var id = UUID.randomUUID().toString();
+		command.setId(id);
 		
 		try {
 			commandGateway.send(command);
-			return new ResponseEntity<>(new RegisterUserResponse("User successfully registered."), HttpStatus.CREATED);
+			return new ResponseEntity<>(new RegisterUserResponse(id, "User successfully registered."), HttpStatus.CREATED);
 		}
 		catch(Exception ex) {
-			var safeErrorMessage = "Error while processing register user request for id - " + command.getId();
+			var safeErrorMessage = "Error while processing register user request for id - " + id;
 			System.out.println(ex.toString());
-			return new ResponseEntity<>(new RegisterUserResponse(safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new RegisterUserResponse(id, safeErrorMessage), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
