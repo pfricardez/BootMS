@@ -6,8 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.springbank.user.cmd.api.dto.BaseResponse;
 import com.springbank.user.cmd.api.commands.RemoveUserCommand;
+import com.springbank.user.core.dto.BaseResponse;
 
 @RestController
 @RequestMapping(path="/api/v1/removeUser")
