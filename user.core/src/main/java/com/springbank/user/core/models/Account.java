@@ -17,5 +17,4 @@ public class Account {
 	private String password;
 	@NotNull(message="Specify at least 1 user role")
 	private List<Role> roles;
-
 }
